@@ -7,6 +7,8 @@
   --photo-bg: #e7e7ea;
   --btn-bg: #1d1d1f;
   --btn-fg: #ffffff;
+  --hl: #ffe58a;
+  --hl-fg: #1d1d1f;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -18,6 +20,8 @@
     --photo-bg: #232325;
     --btn-bg: #f5f5f7;
     --btn-fg: #111112;
+    --hl: #5c4a0a;
+    --hl-fg: #f5f5f7;
   }
 }
 
@@ -74,6 +78,21 @@ h3 { font-size: 22px; font-weight: 600; margin-bottom: 12px; }
 .case p { max-width: 680px; }
 .result { font-weight: 500; }
 
+.demo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border: 1px solid var(--rule); border-radius: 6px; margin-top: 8px; }
+.pane { padding: 18px 20px; }
+.pane + .pane { border-left: 1px solid var(--rule); }
+.pane-label { color: var(--accent); font-size: 13px; font-weight: 500; margin-bottom: 10px; }
+.raw { font-size: 15px; line-height: 1.65; color: var(--muted); margin: 0; }
+.raw mark { background: transparent; color: inherit; border-radius: 2px; transition: background 0.15s, color 0.15s; }
+.raw mark.on { background: var(--hl); color: var(--hl-fg); }
+.out { list-style: none; margin: 0; padding: 0; font-size: 15px; }
+.out li { display: grid; grid-template-columns: 92px minmax(0, 1fr); column-gap: 8px; padding: 9px 10px; margin: 0 -10px; border-radius: 4px; line-height: 1.45; cursor: default; }
+.out li[data-k] { cursor: pointer; }
+.out li[data-k]:hover, .out li[data-k]:focus-visible { background: var(--hl); color: var(--hl-fg); }
+.out .kind { grid-column: 1; font-size: 12px; font-weight: 500; color: var(--accent); padding-top: 2px; }
+.out li[data-k]:hover .kind, .out li[data-k]:focus-visible .kind { color: inherit; }
+.out em { display: block; grid-column: 2; font-style: normal; font-size: 13px; color: var(--muted); }
+
 .method { list-style: none; padding: 0; margin: 20px 0 0; }
 .method li { padding: 16px 0; border-top: 1px solid var(--rule); max-width: 680px; }
 .method li:last-child { border-bottom: 1px solid var(--rule); }
@@ -90,7 +109,8 @@ h3 { font-size: 22px; font-weight: 600; margin-bottom: 12px; }
   .nav nav { gap: 18px; }
   .hero { grid-template-columns: 1fr; gap: 24px; padding-top: 24px; }
   .headshot { order: -1; width: 112px; height: 140px; }
-  .stats, .range { grid-template-columns: 1fr; }
+  .stats, .range, .demo { grid-template-columns: 1fr; }
+  .pane + .pane { border-left: 0; border-top: 1px solid var(--rule); }
   .stats > div, .range > div { padding: 16px 0; border-left: 0; border-top: 1px solid var(--rule); }
   .stats > div:first-child, .range > div:first-child { border-top: 0; }
   section.wrap { padding-top: 56px; }

@@ -18,6 +18,7 @@
     <a class="brand" href="#top">Rich Gartenberg</a>
     <nav aria-label="Main">
       <a href="#work">Work</a>
+      <a href="#demo">Demo</a>
       <a href="#method">Method</a>
       <a href="#range">Range</a>
       <a href="#contact">Contact</a>
@@ -78,6 +79,27 @@
       </article>
     </section>
 
+    <section class="wrap" id="demo">
+      <h2>The method, in miniature</h2>
+      <p class="intro">Workshop talk goes in, sourced requirements come out. Hover or tap an item on the right to see the exact words it came from. This is invented sample text, not client data.</p>
+      <div class="demo">
+        <div class="pane">
+          <p class="pane-label">Before: raw transcript</p>
+          <p class="raw">&hellip;so yeah, the order form. Dana said reps keep <mark data-k="a">re-entering the same address twice, we'd want that to prefill from the account</mark>. Oh, and <mark data-k="b">legal needs the contract term shown before submit, it can't be hidden</mark>. Mark's worried about the Q2 date, <mark data-k="c">it depends on whether the billing API is ready</mark>. Someone should check on that. Anyway, on discounts, <mark data-k="d">anything over 15 percent goes to a manager for approval</mark>&hellip;</p>
+        </div>
+        <div class="pane">
+          <p class="pane-label">After: structured output</p>
+          <ul class="out">
+            <li tabindex="0" data-k="a"><span class="kind">Requirement</span> Prefill the order form address from the account.</li>
+            <li tabindex="0" data-k="b"><span class="kind">Requirement</span> Show the contract term before submit.</li>
+            <li tabindex="0" data-k="d"><span class="kind">Requirement</span> Discounts over 15% need manager approval.</li>
+            <li tabindex="0" data-k="c"><span class="kind">Risk</span> Q2 date depends on billing API readiness.</li>
+            <li class="flag"><span class="kind">Action</span> Check billing API readiness. <em>No owner named: a human reviewer assigns one.</em></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <section class="wrap" id="method">
       <h2>How I work</h2>
       <ul class="method">
@@ -120,5 +142,28 @@
   <footer class="wrap foot">
     <p>&copy; 2026 Rich Gartenberg</p>
   </footer>
+  <script>
+    (function () {
+      var items = document.querySelectorAll('.out li[data-k]');
+      function set(k, on) {
+        var m = document.querySelector('.raw mark[data-k="' + k + '"]');
+        if (m) m.classList.toggle('on', on);
+      }
+      items.forEach(function (li) {
+        var k = li.getAttribute('data-k');
+        li.addEventListener('mouseenter', function () { set(k, true); });
+        li.addEventListener('mouseleave', function () { set(k, false); });
+        li.addEventListener('focus', function () { set(k, true); });
+        li.addEventListener('blur', function () { set(k, false); });
+        li.addEventListener('click', function () {
+          var m = document.querySelector('.raw mark[data-k="' + k + '"]');
+          if (!m) return;
+          var on = !m.classList.contains('on');
+          document.querySelectorAll('.raw mark').forEach(function (x) { x.classList.remove('on'); });
+          m.classList.toggle('on', on);
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
